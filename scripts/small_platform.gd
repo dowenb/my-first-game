@@ -1,6 +1,6 @@
 extends AnimatableBody2D
 
-const SPEED = 30
+const SPEED = 40
 
 var direction = 1
 

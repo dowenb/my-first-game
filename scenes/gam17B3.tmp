@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=4 uid="uid://c3jt7gckurr1b"]
+[gd_scene load_steps=22 format=4 uid="uid://c3jt7gckurr1b"]
 
 [ext_resource type="PackedScene" uid="uid://drbfr2apgeasv" path="res://scenes/player.tscn" id="1_8bll0"]
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_x1noj"]
@@ -10,8 +10,6 @@
 [ext_resource type="PackedScene" uid="uid://d2582x7jo87ff" path="res://scenes/enemy.tscn" id="7_7m8q3"]
 [ext_resource type="FontFile" uid="uid://cusesr3pbq48w" path="res://assets/fonts/PixelOperator8.ttf" id="8_8kpby"]
 [ext_resource type="PackedScene" uid="uid://b2u15f4urmxw2" path="res://scenes/small_platform.tscn" id="10_hal6y"]
-[ext_resource type="FontFile" uid="uid://bqbxlyggdjie3" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="11_cl2le"]
-[ext_resource type="Texture2D" uid="uid://d3i6tf3vv0rtj" path="res://assets/sprites/coin.png" id="12_onl6a"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kix7h"]
 texture = ExtResource("3_gpfss")
@@ -466,30 +464,15 @@ position = Vector2(1575, -47)
 position = Vector2(616, 17)
 
 [node name="HeadsUpDisplay" type="CanvasLayer" parent="."]
+
+[node name="Score" type="Label" parent="HeadsUpDisplay"]
 unique_name_in_owner = true
-scale = Vector2(4, 4)
-transform = Transform2D(4, 0, 0, 4, 0, 0)
-
-[node name="Panel" type="Panel" parent="HeadsUpDisplay"]
-offset_left = 10.0
-offset_top = 9.0
-offset_right = 46.0
-offset_bottom = 28.0
-
-[node name="HudScoreLabel" type="Label" parent="HeadsUpDisplay/Panel"]
-z_index = 1
-offset_left = 13.0
-offset_top = 5.75
-offset_right = 33.0
-offset_bottom = 14.75
-theme_override_fonts/font = ExtResource("11_cl2le")
+offset_left = -143.0
+offset_top = 12.0
+offset_right = -78.0
+offset_bottom = 33.0
+theme_override_fonts/font = ExtResource("8_8kpby")
 theme_override_font_sizes/font_size = 8
-text = "0"
-horizontal_alignment = 2
+text = "0 coins."
+horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="Sprite2D" type="Sprite2D" parent="HeadsUpDisplay/Panel"]
-position = Vector2(8.25, 9.5)
-texture = ExtResource("12_onl6a")
-region_enabled = true
-region_rect = Rect2(3, 3, 10, 10)
