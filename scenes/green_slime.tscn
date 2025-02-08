@@ -1,0 +1,75 @@
+[gd_scene load_steps=10 format=3 uid="uid://hs82fsyau1cw"]
+
+[ext_resource type="Script" path="res://green_slime.gd" id="1_h0cql"]
+[ext_resource type="Texture2D" uid="uid://cnt71g3p53t04" path="res://assets/sprites/slime_green.png" id="2_lj2cr"]
+[ext_resource type="AudioStream" uid="uid://clbix47seh7yo" path="res://assets/sounds/explosion.wav" id="3_vxq3p"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1y5db"]
+atlas = ExtResource("2_lj2cr")
+region = Rect2(0, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_igwkm"]
+atlas = ExtResource("2_lj2cr")
+region = Rect2(24, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h2bi0"]
+atlas = ExtResource("2_lj2cr")
+region = Rect2(48, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_onkd8"]
+atlas = ExtResource("2_lj2cr")
+region = Rect2(72, 24, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wysn5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1y5db")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_igwkm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h2bi0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_onkd8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ffgqt"]
+size = Vector2(14, 12)
+
+[node name="GreenSlime" type="Area2D"]
+script = ExtResource("1_h0cql")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -12)
+sprite_frames = SubResource("SpriteFrames_wysn5")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -6)
+shape = SubResource("RectangleShape2D_ffgqt")
+
+[node name="RayCast2DRight" type="RayCast2D" parent="."]
+position = Vector2(0, -6)
+target_position = Vector2(8, 0)
+
+[node name="RayCast2DLeft" type="RayCast2D" parent="."]
+position = Vector2(0, -6)
+target_position = Vector2(-8, 0)
+
+[node name="Death" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_vxq3p")
+bus = &"SFX"
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.6
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

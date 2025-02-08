@@ -1,10 +1,14 @@
 extends Node
 
 var score = 0
-@onready var score_label: Label = $ScoreLabel
-@onready var hud_score_label: Label = $"../HeadsUpDisplay/Panel/HudScoreLabel"
+var lives = 3
 
 func add_point():
 	score += 1
-	score_label.text = "You coillected " + str(score) + " coins."
-	hud_score_label.text = str(score)
+
+func lose_life():
+	lives -= 1
+
+func reset_lives_and_score():
+	score = 0
+	lives = 3

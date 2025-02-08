@@ -1,9 +1,9 @@
 extends CharacterBody2D
 
-
 const SPEED = 130.0
 const JUMP_VELOCITY = -300.0
 
+@onready var player: CharacterBody2D = %Player
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 func _physics_process(delta: float) -> void:
@@ -38,3 +38,7 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
 	move_and_slide()
+
+func reset_player():
+	player.position = Vector2(0, -32)
+	player.visible = true
