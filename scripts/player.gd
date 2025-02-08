@@ -5,6 +5,10 @@ const JUMP_VELOCITY = -300.0
 
 @onready var player: CharacterBody2D = %Player
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var game_over_timer: Timer = $GameOverTimer
+@onready var game_over_label: Label = %GameOverLabel
+@onready var game_over_sound: AudioStreamPlayer2D = $GameOverSound
+
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -40,5 +44,20 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func reset_player():
-	player.position = Vector2(0, -32)
-	player.visible = true
+		# Check if lives reached 0
+	if GameManager.lives <= 0:
+		# Restart game
+		#player.position = Vector2(0, -300)
+		game_over_sound.play()
+		game_over_label.visible = true
+		game_over_timer.start()
+	else:
+		# Reset charecter without restarting game
+		player.position = Vector2(0, -32)
+		player.visible = true
+
+
+func _on_game_over_timer_timeout() -> void:
+		game_over_label.visible = false
+		get_tree().reload_current_scene()
+		GameManager.reset_lives_and_score()
