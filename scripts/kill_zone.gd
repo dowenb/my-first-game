@@ -6,6 +6,7 @@ extends Area2D
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.visible == true:
+		GameManager.allow_input = false
 		body.visible = false
 		GameManager.lose_life() 
 		death.play()

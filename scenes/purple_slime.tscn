@@ -1,0 +1,75 @@
+[gd_scene load_steps=10 format=3 uid="uid://d346fjkmnf3t5"]
+
+[ext_resource type="Script" path="res://scripts/purple_slime.gd" id="1_uh0pg"]
+[ext_resource type="Texture2D" uid="uid://cl5vxtmpxwdxj" path="res://assets/sprites/slime_purple.png" id="2_khljq"]
+[ext_resource type="AudioStream" uid="uid://clbix47seh7yo" path="res://assets/sounds/explosion.wav" id="3_ys7gb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vnjxi"]
+atlas = ExtResource("2_khljq")
+region = Rect2(0, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ukij"]
+atlas = ExtResource("2_khljq")
+region = Rect2(24, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_325a0"]
+atlas = ExtResource("2_khljq")
+region = Rect2(48, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aqjic"]
+atlas = ExtResource("2_khljq")
+region = Rect2(72, 24, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wysn5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vnjxi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1ukij")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_325a0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aqjic")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ffgqt"]
+size = Vector2(14, 12)
+
+[node name="PurpleSlime" type="Area2D"]
+script = ExtResource("1_uh0pg")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -12)
+sprite_frames = SubResource("SpriteFrames_wysn5")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -6)
+shape = SubResource("RectangleShape2D_ffgqt")
+
+[node name="RayCast2DRight" type="RayCast2D" parent="."]
+position = Vector2(0, -6)
+target_position = Vector2(8, 0)
+
+[node name="RayCast2DLeft" type="RayCast2D" parent="."]
+position = Vector2(0, -6)
+target_position = Vector2(-8, 0)
+
+[node name="Death" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_ys7gb")
+bus = &"SFX"
+
+[node name="PurpleTimer" type="Timer" parent="."]
+wait_time = 0.6
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="PurpleTimer" to="." method="_on_purple_timer_timeout"]

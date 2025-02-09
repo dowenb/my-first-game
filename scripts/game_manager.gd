@@ -2,6 +2,7 @@ extends Node
 
 var score = 0
 var lives = 3
+var allow_input = true
 
 func add_point():
 	score += 1

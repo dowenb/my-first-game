@@ -1,13 +1,13 @@
 extends Area2D
 
-@export var move_speed = 30
+@export var move_speed = 40
 
 var direction = 1
 
 @onready var ray_cast_right: RayCast2D = $RayCast2DRight
 @onready var ray_cast_left: RayCast2D = $RayCast2DLeft
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var timer: Timer = $Timer
+@onready var purple_timer: Timer = $PurpleTimer
 @onready var death: AudioStreamPlayer2D = $Death
 @onready var player: CharacterBody2D = %Player
 
@@ -28,10 +28,9 @@ func _on_body_entered(body: Node2D) -> void:
 		body.visible = false
 		GameManager.lose_life() 
 		death.play()
-		timer.start()
+		purple_timer.start()
 	else:
 		pass
 
-func _on_timer_timeout() -> void:
+func _on_purple_timer_timeout() -> void:
 	player.reset_player()
-		
