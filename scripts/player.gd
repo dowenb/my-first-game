@@ -8,9 +8,12 @@ const JUMP_VELOCITY = -300.0
 @onready var game_over_timer: Timer = $GameOverTimer
 @onready var game_over_label: Label = %GameOverLabel
 @onready var game_over_sound: AudioStreamPlayer2D = $GameOverSound
-
+@onready var win_panel: Panel = %WinPanel
 
 func _physics_process(delta: float) -> void:
+	# Allow game to end when exited with esc key
+	if Input.is_action_just_pressed("exit"):
+		get_tree().quit()
 	# Add the gravity.
 	if not is_on_floor() and GameManager.allow_input:
 		velocity += get_gravity() * delta
@@ -68,3 +71,11 @@ func _on_game_over_timer_timeout() -> void:
 		game_over_label.visible = false
 		get_tree().reload_current_scene()
 		GameManager.reset_lives_and_score()
+		GameManager.allow_input = true
+
+
+func _on_game_win_reset_timeout() -> void:
+	win_panel.visible = false
+	GameManager.reset_lives_and_score()
+	GameManager.allow_input = true
+	get_tree().reload_current_scene()
