@@ -20,7 +20,8 @@ func _process(delta: float) -> void:
 		direction = 1
 		animated_sprite.flip_h = false
 
-	position.x += direction * move_speed * delta
+	if GameManager.allow_input:
+		position.x += direction * move_speed * delta
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.visible == true and body.is_in_group('player'):

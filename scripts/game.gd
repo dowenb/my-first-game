@@ -4,6 +4,8 @@ extends Node2D
 @onready var game_win_reset: Timer = $GameWinReset
 @onready var player: CharacterBody2D = %Player
 @onready var audio_stream_player_2d: AudioStreamPlayer2D = $HeadsUpDisplay/WinPanel/AudioStreamPlayer2D
+@onready var coins: Node = $Coins
+const WINNING_SCORE = 30
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -12,7 +14,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if GameManager.score == 23 and game_win_reset.is_stopped():
+	if GameManager.score == WINNING_SCORE and game_win_reset.is_stopped():
 		GameManager.allow_input = false
 		win_panel.visible = true
 		audio_stream_player_2d.play()
