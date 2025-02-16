@@ -13,7 +13,7 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if GameManager.score == WINNING_SCORE and game_win_reset.is_stopped():
 		GameManager.allow_input = false
 		win_panel.visible = true

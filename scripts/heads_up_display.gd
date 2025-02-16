@@ -10,6 +10,6 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	hud_health_label.text = str(GameManager.lives)
 	hud_score_label.text = str(GameManager.score)
